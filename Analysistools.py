@@ -40,7 +40,3 @@ def plot_data(data, file_name, scale_x="linear", scale_y="linear"):
 
 
 
-data = read_csv_file('test.csv')
-print(data)
-plot_data(data, 'test3_linear', 'linear', 'linear')
-plot_data(data, 'test3_log', 'linear', 'log')
