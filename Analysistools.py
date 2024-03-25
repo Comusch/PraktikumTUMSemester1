@@ -42,12 +42,12 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
 
     ax.plot(data[:, 0], data[:, 1], 'o', color='b', label='Datenwerte')  # Data points
     if data2 is not None:
-        plt.plot(data2[:, 0], data2[:, 1], color='r', label='Fit Line for Cos Data')
+        plt.plot(data2[:, 0], data2[:, 1], color='r', label='Fit Line')
 
     if plot_fit:
         ax.plot(data[:, 0], fit_line(data[:, 0]), color='r', label='Fit Line')  # Fit line
-    ax.set_xlabel(r'Neigungswinkel im Bogenmaß')
-    ax.set_ylabel(r'Verhältnis zwischen Tangentialkraft/Normalkraft')
+    ax.set_xlabel(r'Masse in kg')
+    ax.set_ylabel(r'Kraft in N')
     ax.legend()
     ax.grid()
     fig.show()
