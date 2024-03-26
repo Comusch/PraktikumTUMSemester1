@@ -58,6 +58,9 @@ data_tan = []
 for i in range(0, 60):
     data_tan.append([(1/4)*math.pi*i/60, math.tan((1/4)*math.pi*i/60)])
 
-an.plot_data(data_Fg_Fs, 'Experiment1_Aufgabe4_2', data_cos, False, True,'linear', 'linear')
+print(data_Fg_Fs)
+print(data_sin)
+
+an.plot_data(data_Fg_Fn, 'Experiment1_Aufgabe4_3', data2=data_tan, plot_fit=False, get_pdf=True,scale_x='linear', scale_y='linear', lable_x='Winkel in rad', lable_y='Verhältnis von Tangentialkraft zu Normalkraft')
 
 

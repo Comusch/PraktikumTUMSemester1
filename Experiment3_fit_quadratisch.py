@@ -33,7 +33,7 @@ def fit_quadratic(data):
     return a, b, c
 
 data_set = []
-for i in range(2, 13):
+for i in range(2, 14):
     print(f'-------Experiment1_Aufgabe6------- Test{i}-------')
     new_data = an.read_csv_file(f'Experiment1_Aufgabe3_test{i}.csv')
     new_data = new_data[1:]
@@ -62,30 +62,44 @@ for i in range(len(data_set)):
     an.plot_data(data_set[i], f'Experiment1_Aufgabe3_test{i+2}', data2=data_quadratic[i], plot_fit=False, get_pdf=True, scale_x='linear', scale_y='linear')
 
 print("-------Calculate the average acceleration-------")
+#calculate the standard deviation of the average acceleration
+t1= 1.32
 average_acceleration_first_degree = 0
 average_acceleration_first_degree = sum([cofficients[i][0] for i in range(3)])/3
 print(f'average acceleration first degree: {average_acceleration_first_degree}')
 standard_deviation_first_degree = math.sqrt(sum([(cofficients[i][0] - average_acceleration_first_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation first degree: {standard_deviation_first_degree}')
+standard_deviation_first_degree_of_average = t1/(math.sqrt(3))*standard_deviation_first_degree
+print(f'standard deviation of the average first degree: {standard_deviation_first_degree_of_average}')
+print('----')
 
 average_acceleration_second_degree = 0
 average_acceleration_second_degree = sum([cofficients[i+3][0] for i in range(3)])/3
 print(f'average acceleration second degree: {average_acceleration_second_degree}')
 standard_deviation_second_degree = math.sqrt(sum([(cofficients[i+3][0] - average_acceleration_second_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation second degree: {standard_deviation_second_degree}')
+standard_deviation_second_degree_of_average = t1/(math.sqrt(3))*standard_deviation_second_degree
+print(f'standard deviation of the average second degree: {standard_deviation_second_degree_of_average}')
+print('----')
 
 average_acceleration_third_degree = 0
 average_acceleration_third_degree = sum([cofficients[i+6][0] for i in range(3)])/3
 print(f'average acceleration third degree: {average_acceleration_third_degree}')
 standard_deviation_third_degree = math.sqrt(sum([(cofficients[i+6][0] - average_acceleration_third_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation third degree: {standard_deviation_third_degree}')
+standard_deviation_third_degree_of_average = t1/(math.sqrt(3))*standard_deviation_third_degree
+print(f'standard deviation of the average third degree: {standard_deviation_third_degree_of_average}')
+print('----')
 
 #the 13 data set is not complete
 average_acceleration_fourth_degree = 0
-average_acceleration_fourth_degree = sum([cofficients[i+9][0] for i in range(2)])/2
+average_acceleration_fourth_degree = sum([cofficients[i+9][0] for i in range(3)])/3
 print(f'average acceleration fourth degree: {average_acceleration_fourth_degree}')
-standard_deviation_fourth_degree = math.sqrt(sum([(cofficients[i+9][0] - average_acceleration_fourth_degree) ** 2 for i in range(2)]) / 2)
+standard_deviation_fourth_degree = math.sqrt(sum([(cofficients[i+9][0] - average_acceleration_fourth_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation fourth degree: {standard_deviation_fourth_degree}')
+standard_deviation_fourth_degree_of_average = t1/(math.sqrt(3))*standard_deviation_fourth_degree
+print(f'standard deviation of the average fourth degree: {standard_deviation_fourth_degree_of_average}')
+print('----')
 
 print("-------calculation of the degree-------")
 degress_set = []
@@ -101,7 +115,7 @@ data_points.append([degress_set[1], average_acceleration_second_degree])
 data_points.append([degress_set[2], average_acceleration_third_degree])
 data_points.append([degress_set[3], average_acceleration_fourth_degree])
 
-error_bars = [standard_deviation_first_degree, standard_deviation_second_degree, standard_deviation_third_degree, standard_deviation_fourth_degree]
+error_bars = [standard_deviation_first_degree_of_average, standard_deviation_second_degree_of_average, standard_deviation_third_degree_of_average, standard_deviation_fourth_degree_of_average]
 
 an.plot_data(data_points, 'Experiment1_Aufgabe3_winkel_beschleunigung', None, False, True, 'linear', 'linear', True, error_bars, lable_x='Winkel in rad', lable_y='Beschleunigung in m/s^2')
 
@@ -113,7 +127,7 @@ acceleration_divided_by_gravity.append([degress_set[1], average_acceleration_sec
 acceleration_divided_by_gravity.append([degress_set[2], average_acceleration_third_degree/g])
 acceleration_divided_by_gravity.append([degress_set[3], average_acceleration_fourth_degree/g])
 
-error_bars_divided_by_gravity = [standard_deviation_first_degree/g, standard_deviation_second_degree/g, standard_deviation_third_degree/g, standard_deviation_fourth_degree/g]
+error_bars_divided_by_gravity = [standard_deviation_first_degree_of_average/g, standard_deviation_second_degree_of_average/g, standard_deviation_third_degree_of_average/g, standard_deviation_fourth_degree_of_average/g]
 
 def sin_cos_fit(degree, reibungs_koeffizient):
     return np.sin(degree)-reibungs_koeffizient*np.cos(degree)
@@ -124,12 +138,16 @@ print(f'reibungs_koeffizient_fit: {reibungs_koeffizient_fit[0]}')
 reibungs_koeffizient_fit[0] = 0.265
 print(f"Reibungskoeffizient: {reibungs_koeffizient_fit[0]}")
 
+
 fit_function = []
 for i in range(60):
     fit_function.append([(1/5)*math.pi*i/60, math.sin((1/5)*math.pi*i/60)-reibungs_koeffizient_fit[0]*math.cos((1/5)*math.pi*i/60)])
 
 an.plot_data(acceleration_divided_by_gravity, 'Experiment1_Aufgabe3_winkel_beschleunigung_g_fit', fit_function, False, True, 'linear', 'linear', True, error_bars_divided_by_gravity, lable_x='Winkel in rad', lable_y='Beschleunigung in g')
 
+print("-------calculate the friction coefficient-------")
+u_mu = math.sqrt(math.pow((1/math.cos(degress_set[2])*9.807)*standard_deviation_third_degree_of_average, 2))
+print(f"Fehlerfortpflanzung von u = {u_mu} am Daten Punkt 3")
 
 
 

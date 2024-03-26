@@ -4,6 +4,28 @@ import matplotlib.pyplot as plt
 import os
 import matplotlib as mpl
 
+def generate_latex_table(data):
+    num_rows = len(data)
+    num_cols = len(data[0]) if num_rows > 0 else 0
+
+    if num_cols == 0:
+        print("Das Array ist leer. Kann keine Tabelle generieren.")
+        return
+
+    latex_code = "\\begin{tabular}{|" + "c|" * num_cols + "}\n"
+    latex_code += "\\hline\n"
+
+    for row in data:
+        for item in row:
+            latex_code += str(item) + " & "
+        latex_code = latex_code[:-2]  # Remove the last "& "
+        latex_code += " \\\\\n"  # End the row
+        latex_code += "\\hline\n"
+
+    latex_code += "\\end{tabular}"
+
+    print(latex_code)
+
 def read_csv_file(file_name):
     data = []
     with open(f"./Experiment_Data(CVS-files)/{file_name}", newline='') as csvfile:
@@ -12,6 +34,8 @@ def read_csv_file(file_name):
             print(", ".join(row))
             row_data = []
             if row == []:
+                continue
+            if row[1] == "":
                 continue
             for cell in row:
                 # Check if the cell is a string
@@ -36,7 +60,7 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
 
     if plot_fit:
         fit_line = np.poly1d(coefficients)
-    fig, ax = plt.subplots(figsize=(10, 10))
+    fig, ax = plt.subplots(figsize=(8, 8))
     ax.set_xscale(scale_x)
     ax.set_yscale(scale_y)
     if error_bars:
@@ -52,7 +76,7 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
     ax.set_ylabel(lable_y)
     ax.legend()
     ax.grid()
-    plt.title(file_name)
+    #plt.title(file_name)
     fig.show()
     if get_pdf:
         if not os.path.isdir(f"./Graphics/{file_name}.pdf"):
