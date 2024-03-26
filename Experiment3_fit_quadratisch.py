@@ -121,11 +121,12 @@ def sin_cos_fit(degree, reibungs_koeffizient):
 reibungs_koeffizient_fit, _ = opt.curve_fit(sin_cos_fit, degress_set, [average_acceleration_first_degree, average_acceleration_second_degree, average_acceleration_third_degree, average_acceleration_fourth_degree])
 print(f'reibungs_koeffizient_fit: {reibungs_koeffizient_fit[0]}')
 
-reibungs_koeffizient_fit[0] =
+reibungs_koeffizient_fit[0] = 0.265
+print(f"Reibungskoeffizient: {reibungs_koeffizient_fit[0]}")
 
 fit_function = []
 for i in range(60):
-    fit_function.append([(1/4)*math.pi*i/60, math.sin((1/4)*math.pi*i/60)-reibungs_koeffizient_fit[0]*math.cos((1/4)*math.pi*i/60)])
+    fit_function.append([(1/5)*math.pi*i/60, math.sin((1/5)*math.pi*i/60)-reibungs_koeffizient_fit[0]*math.cos((1/5)*math.pi*i/60)])
 
 an.plot_data(acceleration_divided_by_gravity, 'Experiment1_Aufgabe3_winkel_beschleunigung_g_fit', fit_function, False, True, 'linear', 'linear', True, error_bars_divided_by_gravity, lable_x='Winkel in rad', lable_y='Beschleunigung in g')
 
