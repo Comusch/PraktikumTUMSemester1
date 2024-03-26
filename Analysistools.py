@@ -11,7 +11,7 @@ def read_csv_file(file_name):
         for row in csvreader:
             print(", ".join(row))
             row_data = []
-            if row[1] == "":
+            if row == []:
                 continue
             for cell in row:
                 # Check if the cell is a string
@@ -25,7 +25,7 @@ def read_csv_file(file_name):
             data.append(row_data)
     return data
 
-def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x="linear", scale_y="linear"):
+def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x="linear", scale_y="linear", error_bars=False, error_bars_data=None, lable_x="Zeit in s", lable_y="Abstand in m"):
     data = np.array(data)
     if data2 is not None:
         data2 = np.array(data2)
@@ -39,17 +39,20 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
     fig, ax = plt.subplots(figsize=(10, 10))
     ax.set_xscale(scale_x)
     ax.set_yscale(scale_y)
-
-    ax.plot(data[:, 0], data[:, 1], 'o', color='b', label='Datenwerte')  # Data points
+    if error_bars:
+        ax.errorbar(data[:, 0], data[:, 1], yerr=error_bars_data, fmt='o', color='b', label='Datenwerte')
+    else:
+        ax.plot(data[:, 0], data[:, 1], 'o', color='b', label='Datenwerte')  # Data points
     if data2 is not None:
-        plt.plot(data2[:, 0], data2[:, 1], color='r', label='Fit Line')
+        plt.plot(data2[:, 0], data2[:, 1], color='r', label='Fit Line', linestyle='--')
 
     if plot_fit:
         ax.plot(data[:, 0], fit_line(data[:, 0]), color='r', label='Fit Line')  # Fit line
-    ax.set_xlabel(r'Masse in kg')
-    ax.set_ylabel(r'Kraft in N')
+    ax.set_xlabel(lable_x)
+    ax.set_ylabel(lable_y)
     ax.legend()
     ax.grid()
+    plt.title(file_name)
     fig.show()
     if get_pdf:
         if not os.path.isdir(f"./Graphics/{file_name}.pdf"):
