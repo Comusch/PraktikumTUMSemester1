@@ -55,7 +55,7 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
         data2 = np.array(data2)
     if scale_y == "log":
         coefficients = np.polyfit(data[:, 0], np.log(data[:, 1]), 5, rcond=None, full=False, w=None, cov=False)
-    else:
+    elif plot_fit:
         coefficients = np.polyfit(data[:, 0], data[:, 1], 5, rcond=None, full=False, w=None, cov=False)
 
     if plot_fit:
