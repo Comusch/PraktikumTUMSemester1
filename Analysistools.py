@@ -28,7 +28,7 @@ def generate_latex_table(data):
 
 def read_csv_file(file_name):
     data = []
-    with open(f"./Experiment_Data(CVS-files)/{file_name}", newline='') as csvfile:
+    with open(f"../Experiment_Data(CVS-files)/{file_name}", newline='') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in csvreader:
             print(", ".join(row))
@@ -79,10 +79,10 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
     #plt.title(file_name)
     fig.show()
     if get_pdf:
-        if not os.path.isdir(f"./Graphics/{file_name}.pdf"):
-            fig.savefig(f"./Graphics/{file_name}.pdf")
+        if not os.path.isdir(f"../Graphics/{file_name}.pdf"):
+            fig.savefig(f"../Graphics/{file_name}.pdf")
         else:
-            fig.savefig(f"./Graphics/{file_name}_1.pdf")
+            fig.savefig(f"../Graphics/{file_name}_1.pdf")
 
 
 
