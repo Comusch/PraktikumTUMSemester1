@@ -49,7 +49,7 @@ def read_csv_file(file_name):
             data.append(row_data)
     return data
 
-def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x="linear", scale_y="linear", error_bars=False, error_bars_data=None, lable_x="Zeit in s", lable_y="Abstand in m"):
+def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x="linear", scale_y="linear", error_bars=False, error_bars_data=None, lable_x="Zeit in s", lable_y="Abstand in m", slope=None, intercept=None, std_err=None):
     data = np.array(data)
     if data2 is not None:
         data2 = np.array(data2)
@@ -72,17 +72,27 @@ def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x=
 
     if plot_fit:
         ax.plot(data[:, 0], fit_line(data[:, 0]), color='r', label='Fit Line')  # Fit line
+
+    # Plot the confidence interval if the slope, intercept, and std_err are provided
+    if slope is not None and intercept is not None and std_err is not None:
+        # Calculate the predicted values
+        y_pred = slope * data[:, 0] + intercept
+
+        # Calculate the lower and upper bounds of the confidence interval
+        t = 1.96  # t-value for a 95% confidence level
+        lower_bound = y_pred - t * std_err
+        upper_bound = y_pred + t * std_err
+
+        # Plot the confidence interval
+        ax.fill_between(data[:, 0], lower_bound, upper_bound, color='b', alpha=0.1, label='Confidence Interval')
+
     ax.set_xlabel(lable_x)
     ax.set_ylabel(lable_y)
     ax.legend()
     ax.grid()
-    #plt.title(file_name)
     fig.show()
     if get_pdf:
         if not os.path.isdir(f"../Graphics/{file_name}.pdf"):
             fig.savefig(f"../Graphics/{file_name}.pdf")
         else:
             fig.savefig(f"../Graphics/{file_name}_1.pdf")
-
-
-
