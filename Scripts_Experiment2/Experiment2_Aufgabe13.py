@@ -5,7 +5,7 @@ import math
 from scipy.stats import linregress
 
 # Read the data from the CSV file
-data_exp2_t1 = an.read_csv_file("Experiment2-Aufgabe1.csv")
+data_exp2_t1 = an.read_csv_file("Experiment2-Aufgabe4.csv")
 
 data_exp2_t1 = data_exp2_t1[1:]
 
@@ -13,7 +13,10 @@ print(data_exp2_t1)
 
 # change degree to radian
 for i in range(len(data_exp2_t1)):
-    data_exp2_t1[i][0] = math.radians(data_exp2_t1[i][0])
+    data_exp2_t1[i][0] = math.radians(int(data_exp2_t1[i][0].replace("°", "")))
+    if data_exp2_t1[i][0] < 0:
+        #change negative to possitive Degree, because it should have the same D
+        data_exp2_t1[i][0] *=-1
 
 print(data_exp2_t1)
 
@@ -33,8 +36,8 @@ print(f"Achsenabschnitt: {intercept}")
 print(f"R-Wert: {r_value}")
 print(f"P-Wert: {p_value}")
 print(f"Standardfehler: {std_err}")
-if round(intercept,2) == round(std_err,2):
-    print("Der Achsenabschnitt ist gleich dem Standardfehler. Daraus folgt, dass die beidne großen Proportional sind.")
+if round(intercept,2) <= round(std_err,2):
+    print("Der Achsenabschnitt ist kleiner als der Standardfehler. Daraus folgt, dass die beidne großen Proportional sind.")
 else:
     print("Der Achsenabschnitt ist nicht gleich dem Standardfehler")
 
@@ -46,7 +49,7 @@ for i in range(len(data_exp2_t1)):
 
 
 # Plot the data
-an.plot_data(data_exp2_t1, "Experiment2-Aufgabe10", data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="Winkel in rad", lable_y="Force in N", slope=slope, intercept=intercept, std_err=std_err)
+an.plot_data(data_exp2_t1, "Experiment2-Aufgabe13", data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="Winkel in rad", lable_y="Force in N", slope=slope, intercept=intercept, std_err=std_err)
 print("-------Federkonstante-------")
 r = 0.084
 federkonstante = slope * r
