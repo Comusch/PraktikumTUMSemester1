@@ -56,7 +56,7 @@ m = 0.0576 #Masse in kg
 r_k = 0.03/2 #Radius in m
 h = 0.095 #Höhe in m
 
-I_O_Massekörper = m*r_k**2*1/2
+I_O_Massekörper = m*((r_k**2)/4 +  (h**2)/12)
 print(f'I_O_Massekörper: {I_O_Massekörper}')
 
 data_for_plot_T2_mr2 = []
