@@ -61,7 +61,7 @@ print(f'I_O_Massekörper: {I_O_Massekörper}')
 
 data_for_plot_T2_mr2 = []
 for i in range(len(data_exp2_t22)):
-    data_for_plot_T2_mr2.append([2*data_exp2_t22[i][0]**2 * m, data_exp2_t22[i][2]**2])
+    data_for_plot_T2_mr2.append([2*(data_exp2_t22[i][0]**2) * m, data_exp2_t22[i][2]**2])
     print(f"mr²: {data_exp2_t22[i][0]**2 * m}")
     print(f"Unterscheid zu I_O_Massekörper: {(data_exp2_t22[i][0]**2 * m - I_O_Massekörper)/I_O_Massekörper}")
 

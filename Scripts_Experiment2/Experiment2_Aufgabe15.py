@@ -17,7 +17,7 @@ for i in range(len(data_exp2_t5)):
 print(data_exp2_t5)
 
 print("-------Calculate I_0 of the teller-------")
-dichte = 2.7*(10**6)/1000 #g/cm^3
+dichte = 2.7*(10**6)/1000 #kg/m³
 r = 0.608/2 #m
 h = 0.02 #m
 m = dichte *(r**2)*math.pi*h
