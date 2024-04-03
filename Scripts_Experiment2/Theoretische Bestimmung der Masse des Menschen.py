@@ -72,13 +72,20 @@ print("--------Expolatory of the figure--------")
 I_F1 = 0.00001399 #kgm²
 I_F2 = 0.0002331 #kgm²
 
+I_1_1_m = (m_m/m_f) * (h_m/h_f)**2 * I_F1 #kgm² Expolatory of the figure
+I_1_2_m = (m_m/m_f) * (h_m/h_f)**2 * I_F2 #kgm² Expolatory of the figure
+print(f'I_1 1. Person in kgm²: {I_1_1_m}')
+print(f'I_1 2. Person in kgm²: {I_1_2_m}')
 #TODO: Berechnen des Trägheitsmoments der Figur aus dem Hüftumfang der Puppe und der Masse des Menschen und der Puppe
 
 print("----------Compare the calculated I_0 with the given I_0----------")
 # Compare the calculated I_0 with the given I_0
 print(f"I_0 1. Person in kgm² im Modell: {I_0_1_m}")
+print(f"I_0 1. Person in kgm² von der Puppe Expolation: {I_1_1_m}")
 print(f"I_0 1. Person in kgm² in der Realität: {I_1_m}")
+print("----")
 print(f"I_0 2. Person in kgm² im Modell: {I_0_2_m}")
+print(f"I_0 1. Person in kgm² von der Puppe Exportation: {I_1_2_m}")
 print(f"I_0 2. Person in kgm² in der Realität: {I_2_m}")
 #TODO: Vergleich mit den Verhältnissen der puppe (Modell und Realität)
 

@@ -65,27 +65,27 @@ print("-------Calculate the average acceleration-------")
 #calculate the standard deviation of the average acceleration
 t1= 1.32
 average_acceleration_first_degree = 0
-average_acceleration_first_degree = sum([cofficients[i][0] for i in range(3)])/3
+average_acceleration_first_degree = sum([(cofficients[i][0])**2 for i in range(3)])/3
 print(f'average acceleration first degree: {average_acceleration_first_degree}')
-standard_deviation_first_degree = math.sqrt(sum([(cofficients[i][0] - average_acceleration_first_degree) ** 2 for i in range(3)]) / 3)
+standard_deviation_first_degree = math.sqrt(sum([((cofficients[i][0]) - average_acceleration_first_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation first degree: {standard_deviation_first_degree}')
 standard_deviation_first_degree_of_average = t1/(math.sqrt(3))*standard_deviation_first_degree
 print(f'standard deviation of the average first degree: {standard_deviation_first_degree_of_average}')
 print('----')
 
 average_acceleration_second_degree = 0
-average_acceleration_second_degree = sum([cofficients[i+3][0] for i in range(3)])/3
+average_acceleration_second_degree = sum([(cofficients[i+3][0])**2 for i in range(3)])/3
 print(f'average acceleration second degree: {average_acceleration_second_degree}')
-standard_deviation_second_degree = math.sqrt(sum([(cofficients[i+3][0] - average_acceleration_second_degree) ** 2 for i in range(3)]) / 3)
+standard_deviation_second_degree = math.sqrt(sum([((cofficients[i+3][0]) - average_acceleration_second_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation second degree: {standard_deviation_second_degree}')
 standard_deviation_second_degree_of_average = t1/(math.sqrt(3))*standard_deviation_second_degree
 print(f'standard deviation of the average second degree: {standard_deviation_second_degree_of_average}')
 print('----')
 
 average_acceleration_third_degree = 0
-average_acceleration_third_degree = sum([cofficients[i+6][0] for i in range(3)])/3
+average_acceleration_third_degree = sum([(cofficients[i+6][0])**2 for i in range(3)])/3
 print(f'average acceleration third degree: {average_acceleration_third_degree}')
-standard_deviation_third_degree = math.sqrt(sum([(cofficients[i+6][0] - average_acceleration_third_degree) ** 2 for i in range(3)]) / 3)
+standard_deviation_third_degree = math.sqrt(sum([((cofficients[i+6][0]) - average_acceleration_third_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation third degree: {standard_deviation_third_degree}')
 standard_deviation_third_degree_of_average = t1/(math.sqrt(3))*standard_deviation_third_degree
 print(f'standard deviation of the average third degree: {standard_deviation_third_degree_of_average}')
@@ -93,9 +93,9 @@ print('----')
 
 #the 13 data set is not complete
 average_acceleration_fourth_degree = 0
-average_acceleration_fourth_degree = sum([cofficients[i+9][0] for i in range(3)])/3
+average_acceleration_fourth_degree = sum([(cofficients[i+9][0])**2 for i in range(3)])/3
 print(f'average acceleration fourth degree: {average_acceleration_fourth_degree}')
-standard_deviation_fourth_degree = math.sqrt(sum([(cofficients[i+9][0] - average_acceleration_fourth_degree) ** 2 for i in range(3)]) / 3)
+standard_deviation_fourth_degree = math.sqrt(sum([((cofficients[i+9][0]) - average_acceleration_fourth_degree) ** 2 for i in range(3)]) / 3)
 print(f'standard deviation fourth degree: {standard_deviation_fourth_degree}')
 standard_deviation_fourth_degree_of_average = t1/(math.sqrt(3))*standard_deviation_fourth_degree
 print(f'standard deviation of the average fourth degree: {standard_deviation_fourth_degree_of_average}')
@@ -135,7 +135,7 @@ def sin_cos_fit(degree, reibungs_koeffizient):
 reibungs_koeffizient_fit, _ = opt.curve_fit(sin_cos_fit, degress_set, [average_acceleration_first_degree, average_acceleration_second_degree, average_acceleration_third_degree, average_acceleration_fourth_degree])
 print(f'reibungs_koeffizient_fit: {reibungs_koeffizient_fit[0]}')
 
-reibungs_koeffizient_fit[0] = 0.265
+reibungs_koeffizient_fit[0] = 0.28
 print(f"Reibungskoeffizient: {reibungs_koeffizient_fit[0]}")
 
 

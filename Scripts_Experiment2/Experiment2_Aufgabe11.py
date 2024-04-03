@@ -90,10 +90,16 @@ an.plot_data(data_for_plot_T2_mr2, "Experiment2-Aufgabe11", data2=data_fit, plot
 print("-------Calculation of D, I_0 and Iz-------")
 D = (2*math.pi**2)/slope
 print(f'D: {D}')
+uncertanty_D = D - (2*math.pi**2)/(slope + std_err)
+print(f'uncertanty D: {uncertanty_D}')
 I_0 = average_I_0_D * D
 print(f'I_0 durch erste Messreihe: {I_0}')
-I_02 = intercept/(4*math.pi**2)*D
+I_02 = (intercept/(4*math.pi**2))*D
 print(f'I_O form the second data:{I_02}')
+uncertanty_I_0 = I_0 - (average_I_0_D + standard_deviation_I_0_D_of_average)*D
+print(f'uncertanty I_0: {uncertanty_I_0}')
+uncertanty_I_02 = I_02 - (intercept/(4*math.pi**2))*(D + uncertanty_D)
+print(f'uncertanty I_02: {uncertanty_I_02}')
 if round(I_02, 4) == round(I_0):
     print(f'the rounded value of I_0: {round(I_02, 4)}')
 else:
