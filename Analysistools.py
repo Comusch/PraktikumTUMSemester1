@@ -49,29 +49,23 @@ def read_csv_file(file_name):
             data.append(row_data)
     return data
 
-def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x="linear", scale_y="linear", error_bars=False, error_bars_data=None, lable_x="Zeit in s", lable_y="Abstand in m", slope=None, intercept=None, std_err=None):
+def plot_data(data, file_name, data2=None, plot_fit=True, get_pdf=True, scale_x="linear", scale_y="linear", error_bars=False, error_bars_data=None, lable_x="Zeit in s", lable_y="Abstand in m", slope=None, intercept=None, std_err=None, lable_daten="Datenwerte", lable_fit="Fit zu den Datenwerten"):
     data = np.array(data)
     if data2 is not None:
         data2 = np.array(data2)
-    if scale_y == "log":
-        coefficients = np.polyfit(data[:, 0], np.log(data[:, 1]), 5, rcond=None, full=False, w=None, cov=False)
-    elif plot_fit:
-        coefficients = np.polyfit(data[:, 0], data[:, 1], 5, rcond=None, full=False, w=None, cov=False)
 
-    if plot_fit:
-        fit_line = np.poly1d(coefficients)
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.set_xscale(scale_x)
     ax.set_yscale(scale_y)
-    if error_bars:
+    if plot_fit:
+        plt.plot(data[:, 0], data[:, 1], '-', color='r', label='Fit zu den Datenwerten')  # Data points
+        #ax.plot(data[:, 0], data[:, 1], 'o', color='b', label='Datenwerte')  # Data points
+    elif error_bars:
         ax.errorbar(data[:, 0], data[:, 1], yerr=error_bars_data, fmt='o', color='b', label='Datenwerte')
     else:
-        ax.plot(data[:, 0], data[:, 1], 'o', color='b', label='Datenwerte')  # Data points
+        ax.plot(data[:, 0], data[:, 1], 'o', color='b', label=lable_daten)  # Data points
     if data2 is not None:
-        plt.plot(data2[:, 0], data2[:, 1], color='r', label='Fit Line', linestyle='--')
-
-    if plot_fit:
-        ax.plot(data[:, 0], fit_line(data[:, 0]), color='r', label='Fit Line')  # Fit line
+        plt.plot(data2[:, 0], data2[:, 1], color='r', label=lable_fit, linestyle='--')
 
     # Plot the confidence interval if the slope, intercept, and std_err are provided
     if slope is not None and intercept is not None and std_err is not None:
