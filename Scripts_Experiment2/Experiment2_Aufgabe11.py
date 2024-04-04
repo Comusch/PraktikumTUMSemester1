@@ -56,12 +56,12 @@ m = 0.0576 #Masse in kg
 r_k = 0.03/2 #Radius in m
 h = 0.095 #Höhe in m
 
-I_O_Massekörper = m*r_k**2*1/2
+I_O_Massekörper = m*((r_k**2)/4 +  (h**2)/12)
 print(f'I_O_Massekörper: {I_O_Massekörper}')
 
 data_for_plot_T2_mr2 = []
 for i in range(len(data_exp2_t22)):
-    data_for_plot_T2_mr2.append([2*data_exp2_t22[i][0]**2 * m, data_exp2_t22[i][2]**2])
+    data_for_plot_T2_mr2.append([2*(data_exp2_t22[i][0]**2) * m, data_exp2_t22[i][2]**2])
     print(f"mr²: {data_exp2_t22[i][0]**2 * m}")
     print(f"Unterscheid zu I_O_Massekörper: {(data_exp2_t22[i][0]**2 * m - I_O_Massekörper)/I_O_Massekörper}")
 
@@ -90,10 +90,16 @@ an.plot_data(data_for_plot_T2_mr2, "Experiment2-Aufgabe11", data2=data_fit, plot
 print("-------Calculation of D, I_0 and Iz-------")
 D = (2*math.pi**2)/slope
 print(f'D: {D}')
+uncertanty_D = D - (2*math.pi**2)/(slope + std_err)
+print(f'uncertanty D: {uncertanty_D}')
 I_0 = average_I_0_D * D
 print(f'I_0 durch erste Messreihe: {I_0}')
-I_02 = intercept/(4*math.pi**2)*D
+I_02 = (intercept/(4*math.pi**2))*D
 print(f'I_O form the second data:{I_02}')
+uncertanty_I_0 = I_0 - (average_I_0_D + standard_deviation_I_0_D_of_average)*D
+print(f'uncertanty I_0: {uncertanty_I_0}')
+uncertanty_I_02 = I_02 - (intercept/(4*math.pi**2))*(D + uncertanty_D)
+print(f'uncertanty I_02: {uncertanty_I_02}')
 if round(I_02, 4) == round(I_0):
     print(f'the rounded value of I_0: {round(I_02, 4)}')
 else:

@@ -51,3 +51,7 @@ print("-------Federkonstante-------")
 r = 0.084
 federkonstante = slope * r
 print(f"Federkonstante: {federkonstante}")
+print("-------Berechnung der Fehlerfortpflanzung-------")
+uncertainty_r = 0.001
+uncertainty_federkonstante = math.sqrt((r * std_err)**2 + (slope*uncertainty_r)**2)
+print(f"uncertainty federkonstante: {uncertainty_federkonstante}")

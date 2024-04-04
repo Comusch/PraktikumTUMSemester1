@@ -51,6 +51,6 @@ for i in range(len(data_exp2_t1)):
 # Plot the data
 an.plot_data(data_exp2_t1, "Experiment2-Aufgabe13", data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="Winkel in rad", lable_y="Force in N", slope=slope, intercept=intercept, std_err=std_err)
 print("-------Federkonstante-------")
-r = 0.084
+r = 0.608/2#Radius in m
 federkonstante = slope * r
 print(f"Federkonstante: {federkonstante}")
