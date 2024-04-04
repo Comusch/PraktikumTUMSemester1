@@ -78,9 +78,11 @@ an.plot_data(maxima_log, "Experiment_Aufgabe9d", data2=data_computer_linear, get
 print("------------Data form the human calculation-------------")
 print(f"slope: {slope}, intercept: {intercept}")
 print(f"Dämpfungskoeffizent: {round(-slope, 5)}, ursprüngliche Auslenkung: {round(math.exp(intercept), 5)}")
+print(f"Abklingzeit: {round(-1/slope, 5)}")
 print(f"Unsicherheit: {round(std_err, 5)}")
 
 print("-----------Data form the Computer calculation------------")
 print(f"slope{slope_c}, intercept: {intercept_c}")
 print(f"Dämpfungskoeffizent: {round(-slope_c, 5)}, ursprüngliche Auslenkung: {round(math.exp(intercept_c), 5)}")
+print(f"Abklingzeit: {round(-1/slope_c, 5)}")
 print(f"Unsicherheit: {round(std_err_c, 5)}")
