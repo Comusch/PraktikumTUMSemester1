@@ -53,5 +53,5 @@ print(half_maxima)
 real_half_maxima_vorne = half_maxima[0]
 real_half_maxima_hinten = half_maxima[len(half_maxima)-1]
 print(f"Halbwertsbreite in Hz: {real_half_maxima_hinten[0] - real_half_maxima_vorne[0]}")
-if round(real_half_maxima_hinten[0] - real_half_maxima_vorne[0], 3) == 2*lambda_coef:
+if round(real_half_maxima_hinten[0] - real_half_maxima_vorne[0], 3) == round(2*lambda_coef, 3):
     print("Die Halbwertsbreite ist genau 2*lambda")

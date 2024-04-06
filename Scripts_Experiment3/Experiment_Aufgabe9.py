@@ -1,7 +1,7 @@
 import Analysistools as an
 import numpy as np
 import math
-from scipy.stats import linregress
+
 
 #Konstanten
 u_d_I = 0.0336434908630853

@@ -71,12 +71,16 @@ for i in range(len(periode_data)):
     average_periode_data.append(average_periode)
     print(f'avarage_periode {i}: {average_periode}')
     average_w_data.append(2*math.pi/average_periode)
+    print(f'average_w {i}: {2*math.pi/average_periode}')
+
     standard_deviation_periode = (sum([(x - average_periode) ** 2 for x in periode_data[i]]) / len(periode_data[i])) ** 0.5
     standard_deviation_periode_data.append(standard_deviation_periode)
     print(f'standard_deviation_periode {i}: {standard_deviation_periode}')
+
     standard_deviation_w_data.append(2*math.pi/average_periode**2*standard_deviation_periode)
     standard_deviation_periode_of_average = t/(len(periode_data[i])**0.5)*standard_deviation_periode
     standard_deviation_periode_of_average_data.append(standard_deviation_periode_of_average)
+
     print(f'standard_deviation_periode_of_average {i}: {standard_deviation_periode_of_average}')
     standard_deviation_w_of_average_data.append(2*math.pi/average_periode**2*standard_deviation_periode_of_average)
     print('----')
@@ -124,10 +128,27 @@ for i in range(len(plot_data_lambda_I)):
 an.plot_data(plot_data_lambda_I, "Experiment3_Aufgabe6_lambda_normal",data2=data_lambda_linear,  get_pdf=True, plot_fit=False, lable_x="I^2 in A^2", lable_y="lambda in 1/s", scale_x="linear", scale_y="linear", lable_daten="Datenwerte",lable_fit="Fit Gerade", error_bars=True, error_bars_data=error_lambda_data)
 print("Da die Fit Funktion eine ursprungsgerade ist, ist lambda proportional zu I²")
 
+print("slope_lambda: ", slope_lambda)
+print("intercept_lambda: ", intercept_lambda)
+print("r_value_lambda: ", r_value_lambda)
+print("p_value_lambda: ", p_value_lambda)
+print("std_err_lambda: ", std_err_lambda)
+
 print("-----------------Plot the data w to lambda-----------------")
+average_radius = 0
+radius_data = []
 plot_data_w_lambda = []
 for i in range(len(lambda_data)):
     plot_data_w_lambda.append([lambda_data[i], average_w_data[i]])
+    radius_data.append(math.sqrt(lambda_data[i]**2 + average_w_data[i]**2))
+    print(f'w_0 {i}: {math.sqrt(average_w_data[i]**2 + lambda_data[i]**2)}')
+
+average_radius = sum(radius_data)/len(radius_data)
+circle_data = []
+for i in range(100):
+    circle_data.append([math.cos(i/100*1/2*math.pi)*(average_radius-0.3), math.sin(i/100*1/2*math.pi)*(average_radius-0.3)])
+
+
 
 '''
 x_w = np.array(plot_data_w_lambda)[:,0]
@@ -140,6 +161,8 @@ for i in range(len(plot_data_w_lambda)):
     data_w_linear.append([plot_data_w_lambda[i][0], slope_w*plot_data_w_lambda[i][0]+intercept_w])
 '''
 an.plot_data(plot_data_w_lambda, "Experiment3_Aufgabe6_w_lambda",  get_pdf=True, plot_fit=False, lable_x="lambda in 1/s", lable_y="w in 1/s", scale_x="linear", scale_y="linear", lable_daten="Datenwerte", error_bars=True, error_bars_data=error_lambda_data)
+
+an.plot_data(plot_data_w_lambda, "Experiment3_Aufgabe6_w_lambda_circle", data2=circle_data, get_pdf=True, plot_fit=False, lable_x="lambda in 1/s", lable_y="w in 1/s", scale_x="linear", scale_y="linear", lable_daten="Datenwerte", error_bars=True, error_bars_data=error_lambda_data, lable_fit="Kreis-fit")
 
 
 
