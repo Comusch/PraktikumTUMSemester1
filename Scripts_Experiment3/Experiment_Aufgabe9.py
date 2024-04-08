@@ -1,7 +1,7 @@
 import Analysistools as an
 import numpy as np
 import math
-
+from scipy.stats import linregress
 
 #Konstanten
 u_d_I = 0.0336434908630853
@@ -19,12 +19,12 @@ print(data_human)
 an.plot_data(data_human, "Experiment3_Aufgabe9a", get_pdf=True, plot_fit=False, lable_x="Nummer der Periode", lable_y="Amplitude in rad")
 
 print("------------Skale data------------------------")
-data_human_log = data_human
+data_human_log = np.array(data_human)
 for i in range(len(data_human_log)):
     data_human_log[i][1] = math.log(data_human_log[i][1])
 print(data_human_log)
 
-x_human = np.array(data_human_log)[:, 0]
+x_human = np.array(data_human)[:, 0]
 y_human = np.array(data_human_log)[:, 1]
 print(x_human)
 print(y_human)
@@ -32,11 +32,11 @@ print(y_human)
 slope, intercept, r_value, p_value, std_err = linregress(x_human, y_human)
 data_human_linear = []
 for i in range(len(data_human_log)):
-    data_human_linear.append((data_human_log[i][0], slope*data_human_log[i][0] + intercept))
+    data_human_linear.append((data_human_log[i][0], math.exp(slope*data_human_log[i][0] + intercept)))
 print(data_human_linear)
 
 
-an.plot_data(data_human, "Experiment3_Aufgabe9b", data2=data_human_linear, get_pdf=True, plot_fit=False, lable_x="Nummer der Periode", lable_y="Amplitude in log(rad)")
+an.plot_data(data_human, "Experiment3_Aufgabe9b", data2=data_human_linear, get_pdf=True, plot_fit=False, lable_x="Zeit in s", lable_y="Amplitude in rad", scale_x="linear", scale_y="log")
 
 print("-------------Load Computer Data------------------------")
 data_computer = an.read_csv_file("POR_A3.1.csv")

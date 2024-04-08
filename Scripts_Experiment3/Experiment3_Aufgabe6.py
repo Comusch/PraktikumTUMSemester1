@@ -145,8 +145,8 @@ for i in range(len(lambda_data)):
 
 average_radius = sum(radius_data)/len(radius_data)
 circle_data = []
-for i in range(100):
-    circle_data.append([math.cos(i/100*1/2*math.pi)*(average_radius-0.3), math.sin(i/100*1/2*math.pi)*(average_radius-0.3)])
+for i in range(40):
+    circle_data.append([math.cos((1-i/100)*1/2*math.pi)*(average_radius-0.1), math.sin((1-i/100)*1/2*math.pi)*(average_radius-0.1)])
 
 
 

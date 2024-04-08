@@ -15,6 +15,10 @@ for i in range(len(data_resonanz)):
     data_resonanz[i][0] = data_resonanz[i][0]/3200
 print(data_resonanz)
 
+error_bar_data_resonanz = []
+for i in range(len(data_resonanz)):
+    error_bar_data_resonanz.append(0.015)
+
 w_D = 0.5
 M_d_om = 0.02
 lambda_coef = 0.018
@@ -29,7 +33,7 @@ for i in range(500, 3000):
 print(fit_function_data)
 
 
-an.plot_data(data_resonanz, "Experiment3_Aufgabe10", data2=fit_function_data, plot_fit=False, get_pdf=True , lable_x="Frequenz in Hz", lable_y="Amplitude in rad")
+an.plot_data(data_resonanz, "Experiment3_Aufgabe10", data2=fit_function_data, plot_fit=False, get_pdf=True , lable_x="Frequenz in Hz", lable_y="Amplitude in rad", error_bars=True, error_bars_data=error_bar_data_resonanz)
 
 print("--------------Get the information of the fit function parameters----------------")
 print(f"lambda(Daempfungskonstante): {lambda_coef}")
