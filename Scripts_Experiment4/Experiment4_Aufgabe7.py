@@ -15,7 +15,7 @@ print(data_temperatur)
 
 data_plot = []
 for i in range(len(data_temperatur)):
-    data_plot.append((1/(data_temperatur[i][0] +T), data_temperatur[i][1]))
+    data_plot.append((1/(data_temperatur[i][0] +T), data_temperatur[i][1]*10**5))
 
 print(data_plot)
 print("------------Plot Data----------")
@@ -33,7 +33,7 @@ data_plot_fit = []
 for i in range(len(data_plot)):
     data_plot_fit.append((data_plot[i][0], math.exp(slope_c*data_plot[i][0]+ intercept_c)))
 
-an.plot_data(data_plot, "Experiment4_Aufgabe7",data2=data_plot_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="log", lable_x="1/Temperatur in 1/K", lable_y="Druck in bar")
+an.plot_data(data_plot, "Experiment4_Aufgabe7",data2=data_plot_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="log", lable_x="1/Temperatur in 1/K", lable_y="Druck in Pa")
 
 print(f"Steigung:{slope_c}")
 print(f"Unsicherheit:{std_err_c}")
@@ -45,9 +45,12 @@ print("------------Calculation of L----------------")
 data_L = []
 error_bars_data = []
 for i in range(len(data_temperatur)):
-    L = data_temperatur[i][1]*10**5*(A/(data_temperatur[i][0]+T))*(data_temperatur[i][2]/n[i%3] - data_temperatur[i][2]*n[i%3])
-    error_bars_data.append((data_temperatur[i][1]*10**5*(std_err_c/(data_temperatur[i][0]+T))*(data_temperatur[i][2]/n[i%3] - data_temperatur[i][2]*n[i%3])))
+    L = data_temperatur[i][1]*10**5*(A/(data_temperatur[i][0]+T))*(data_temperatur[i][2]/n[i%3] - data_temperatur[i][3]/n[i%3])*10**(-6)
+    print(f"Rechnung L_{i+1}: {data_temperatur[i][1]*10**5} * {A/(data_temperatur[i][0]+T)} * {data_temperatur[i][2]/n[i%3] - data_temperatur[i][2]*n[i%3]}")
+    uncertainty_L = math.sqrt((data_temperatur[i][1]*10**5*(std_err_c/(data_temperatur[i][0]+T))*(data_temperatur[i][2]/n[i%3] - data_temperatur[i][3]/n[i%3])*10**(-6))**2 + ((A/(data_temperatur[i][0]+T))*(data_temperatur[i][2]/n[i%3] - data_temperatur[i][3]/n[i%3])*0.05*10**(5)*10**(-6))**2+(data_temperatur[i][1]*10**(-5)*(A/(data_temperatur[i][0]+T))*(0.05/n[i%3])*10**(-6))**2)
+    error_bars_data.append(uncertainty_L)
     print(f"L_{i+1} : {L}, dazu Temperatur in K: {data_temperatur[i][0]+T}")
+    print(f"Unsicherheit L_{i+1} : {uncertainty_L}")
     data_L.append((data_temperatur[i][0]+T, L))
 
 print("-------is it a circle?--------")
