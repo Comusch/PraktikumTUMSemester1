@@ -15,6 +15,10 @@ for i in range(len(data_resonanz)):
     data_resonanz[i][0] = data_resonanz[i][0]/3200
 print(data_resonanz)
 
+error_bar_data_resonanz = []
+for i in range(len(data_resonanz)):
+    error_bar_data_resonanz.append(0.015)
+
 w_D = 0.5
 M_d_om = 0.02
 lambda_coef = 0.018
@@ -29,7 +33,7 @@ for i in range(500, 3000):
 print(fit_function_data)
 
 
-an.plot_data(data_resonanz, "Experiment3_Aufgabe10", data2=fit_function_data, plot_fit=False, get_pdf=True , lable_x="Frequenz in Hz", lable_y="Amplitude in rad")
+an.plot_data(data_resonanz, "Experiment3_Aufgabe10", data2=fit_function_data, plot_fit=False, get_pdf=True , lable_x="Frequenz in Hz", lable_y="Amplitude in rad", error_bars=True, error_bars_data=error_bar_data_resonanz)
 
 print("--------------Get the information of the fit function parameters----------------")
 print(f"lambda(Daempfungskonstante): {lambda_coef}")
@@ -53,5 +57,5 @@ print(half_maxima)
 real_half_maxima_vorne = half_maxima[0]
 real_half_maxima_hinten = half_maxima[len(half_maxima)-1]
 print(f"Halbwertsbreite in Hz: {real_half_maxima_hinten[0] - real_half_maxima_vorne[0]}")
-if round(real_half_maxima_hinten[0] - real_half_maxima_vorne[0], 3) == 2*lambda_coef:
+if round(real_half_maxima_hinten[0] - real_half_maxima_vorne[0], 3) == round(2*lambda_coef, 3):
     print("Die Halbwertsbreite ist genau 2*lambda")
