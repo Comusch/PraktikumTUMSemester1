@@ -26,8 +26,10 @@ print("Standard deviation of the average: ", standard_deviation_of_average)
 print("------------Calculation of the viscosity-------------")
 dk = 0.0065
 rk = dk/2
+print("Radius of the small ball in m: ", rk)
 g = 9.81
 Rroh = 0.049
+print("Radius of the cylinder in m: ", Rroh)
 
 V_k = 4/3*math.pi*rk**3
 print("Volume of the small ball in m^3: ", V_k)
@@ -44,11 +46,25 @@ print("theory Viscosity: ", n_t)
 n_r = (2*rk**2*g*(dichte_k-dichte_f))/(9*v*(1+2.4*rk/Rroh))
 print("real Viscosity: ", n_r)
 
+print("------------Error Analysis-------------")
+uk = 1
+u_F = 0.01
+
+u_v = standard_deviation_of_average
+u_r = 0.0005
+
+u_eta = math.sqrt((4*rk*g/(9*v)*(dichte_k-dichte_f)*u_r)**2 + (2*rk**2*g/(9*v)*1*uk)**2 + (2*rk**2*g/(9*v)*u_F)**2 + (2*rk**2*g/(9*v**2)*u_v)**2)
+print("Error of the viscosity (theory): ", u_eta)
+
 print("------------Calculation of the Reynolds number-------------")
 
-Re = 2*Rroh*v*dichte_f/n_r
+Re = (2*Rroh)*v*dichte_f/n_r
 print("Reynolds number: ", Re)
 if Re < 1000:
     print("The flow is laminar")
 else:
     print("The flow is turbulent")
+
+u_Rroh = 0.001
+u_re = math.sqrt((dichte_f*v/(n_r)*2*u_Rroh)**2 + (2*Rroh*v/(n_r)*u_F)**2 + (2*Rroh*dichte_f/(n_r)*u_v)**2 + (2*Rroh*dichte_f*v/(n_r**2)*u_eta)**2)
+print("Error of the Reynolds number: ", u_re)
