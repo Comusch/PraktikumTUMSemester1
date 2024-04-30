@@ -24,7 +24,7 @@ data_fit.append((0, intercept))
 for i in range(len(data_r)):
     data_fit.append((data_r[i][0], slope*data_r[i][0]+intercept))
 
-an.plot_data(data_r, "Experiment6_Aufgabe5", data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="Zeit in ms", lable_y="Länge in cm")
+an.plot_data(data_r, "Experiment6_Aufgabe5", data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="time in ms", lable_y="Way in cm")
 
 print("------------Calculate the speed of sound------------")
 v_gas = slope * 10
@@ -37,6 +37,8 @@ rho_0 = 1.2 #kg/m^3
 
 k = v_gas**2 * rho_0/p_0
 print(f"Adiabatenkoeffizion: {k}")
+u_k = math.sqrt((2*v_gas*std_err*rho_0/p_0)**2 + (v_gas**2*0.1*10**5/p_0**2)**2)
+print(f"Uncertainty: {u_k}")
 
 
 

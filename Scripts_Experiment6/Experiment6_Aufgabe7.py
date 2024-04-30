@@ -19,8 +19,10 @@ f_3 = data_3[0][0]
 
 def plot_data_and_Calculate_velosity(data, f):
     print(f"------------Plot Data of {f} -----------------")
+    error_bar_data = []
     for i in range(len(data)):
         data[i][0] = i+1
+        error_bar_data.append(1)
 
     x = np.array(data)[:,0]
     y = np.array(data)[:, 1]
@@ -34,12 +36,13 @@ def plot_data_and_Calculate_velosity(data, f):
     for i in range(len(data)):
         data_fit.append((data[i][0], slope*data[i][0]+intercept))
 
-    an.plot_data(data, f, data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="Anzahl der Maxima n", lable_y="Länge in cm")
+    an.plot_data(data, f, data2=data_fit, plot_fit=False, get_pdf=True, scale_x="linear", scale_y="linear", lable_x="number of maximum n", lable_y="length l in cm", error_bars=True, error_bars_data=error_bar_data)
 
     print("------------Calculate the speed of sound------------")
-    lambda_s = slope*10**(-1)/4
-    v_s = f * lambda_s
-    u_v = f * std_err*10**(-1)/4
+    u_f = 1 #Hz for the releaser of the product
+    v_s = slope * 10**(-2) *2*f
+    print("-------")
+    u_v = math.sqrt((2*f * std_err*10**(-2))**2 + (u_f *2*slope*10**(-2))**2)
     print(f"Speed of sound: {v_s} m/s")
     print(f"Uncertainty: {u_v} m/s")
     return v_s, u_v
